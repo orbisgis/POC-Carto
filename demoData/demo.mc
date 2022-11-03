@@ -1,0 +1,23 @@
+{
+    "title":"Demo",
+    "w":600,
+    "h":400,
+    "layers":[
+        {
+            "data":"data_point_polygon.geojson",
+            "styles":[
+                {"style":"point.css"},
+                {"style":"line.css"},
+                {"style":"polygon.css"}
+            ]
+        },
+        {
+            "data":"data_lines.geojson",
+            "styles":[
+                {"style":"line.css"}
+            ]
+        }
+    ],
+    "crs":"EPSG:4326",
+    "bbox":[-300,300,-200,200]
+}
