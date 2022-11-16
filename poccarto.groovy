@@ -1,4 +1,5 @@
 import groovy.cli.Option
+import org.geotools.feature.FeatureCollection
 
 import javax.swing.WindowConstants
 import javax.swing.text.html.HTMLDocument
@@ -95,8 +96,8 @@ The .mc file is the serialization of a map content under json format :
         },
         ...
     ],
-    "crs":"EPSG:4326",
-    "bbox":[-0.1,2.1,50.0,48.4]
+    "crs":"EPSG:4326",//Optional, only if a bbox is defined
+    "bbox":[-0.1,2.1,50.0,48.4] //Optional, is not set, use the data computed bbox.
 }
 """)
 else {
@@ -152,18 +153,14 @@ else {
     renderer.java2DHints = hints
     def mc = new MapContent()
     mc.title = json.title
-    if (!json.bbox) {
-        println "No BBOX provided"; return
-    }
-    if (!json.crs) {
-        println "No CRS provided"; return
-    }
-    def mapBounds = new ReferencedEnvelope(json.bbox[0], json.bbox[1], json.bbox[2], json.bbox[3], CRS.decode(json.crs))
-    mc.viewport = new MapViewport(mapBounds)
 
     if (!json.layers) {
         println "No Layer"; return
     }
+    def mapBounds
+    if(json.bbox)
+        mapBounds = new ReferencedEnvelope(json.bbox[0], json.bbox[1], json.bbox[2], json.bbox[3], CRS.decode(json.crs))
+
     json.layers.each { layer ->
         //Style
         def styles = []
@@ -181,12 +178,20 @@ else {
             def ds = DataStoreFinder.getDataStore(["url": data.toURI().toURL()])
             features = ds.getFeatureSource(ds.typeNames[0]).features
         } else println("Unsupported file format : '$data'")
+        if(!json.bbox && features) {
+            if (!mapBounds)
+                mapBounds = features.getBounds()
+            else
+                mapBounds.expandToInclude(features.getBounds())
+        }
 
         //Rendering
         styles.each {
             mc.addLayer(new FeatureLayer(features, it))
         }
     }
+
+    mc.viewport = new MapViewport(mapBounds)
 
     renderer.mapContent = mc
     def image = [width, height, BufferedImage.TYPE_INT_RGB] as BufferedImage

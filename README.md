@@ -12,7 +12,10 @@ If the output file exists, it is replaced by the new content. To avoid that, the
 
 Command usage: 
 ```bash 
+# General usage
 groovy poccarto.groovy [-hV] (--mcHelp | [<input> <output> [-s[=<show>]] [--no-replace]])
+# Very simple usage
+groovy poccarto.groovy inputMCFile.mc outputImageFile.png
 
 ```
 
@@ -64,7 +67,7 @@ The height can be defined using `"h"` or `"height"`.
         },
         ...
     ],
-    "crs":"EPSG:4326",
-    "bbox":[-0.1,2.1,50.0,48.4]
+    "crs":"EPSG:4326", //Optional, only if a bbox is defined
+    "bbox":[-0.1,2.1,50.0,48.4] //Optional, is not set, use the data computed bbox.
 }
 ```
