@@ -52,7 +52,7 @@ For more information about .mc file, use option '--mcHelp'.
 
 //Root argument group
 @ArgGroup(exclusive = true, multiplicity = "1")
-@Field Exclusive exclusive
+@Field Exclusive excl
 
 //Sub arguments groups
 class Data {
@@ -61,6 +61,9 @@ class Data {
     @Option(names = ['-s','--show'],
             description = "Show the rendering result in a separated window. Window size can be set adding 'widthxheight' like '--show 300x240'.",
             arity = "0..1") String show
+    @Option(names = '--no-replace', 
+            description = 'Avoid to replace existing output file by adding a number at the end : out.png -> out1.png -> out2.png ...')
+        boolean noReplace
 }
 class Exclusive {
     @ArgGroup(exclusive = false)
@@ -69,7 +72,7 @@ class Exclusive {
 }
 
 //Script core
-if(exclusive.mcHelp) println("""
+if(excl.mcHelp) println("""
 The .mc file is the serialization of a map content under json format : 
 {
     "title":"title of the map",
@@ -95,10 +98,25 @@ The .mc file is the serialization of a map content under json format :
 }
 """)
 else {
-    if (!exclusive.data.input) {
+    if (!excl.data.input) {
         println "Empty input"; return
     }
-    def json = new JsonSlurper().parse(exclusive.data.input)
+    if (!excl.data.output) {
+        println "No output provided"; return
+    }
+    def outFile = excl.data.output as File
+    if(outFile.exists() && excl.data.noReplace) {
+        def start = excl.data.output.absolutePath.split("\\.")[0]
+        def end = excl.data.output.absolutePath.split("\\.")[1]
+        for(i in 1..Integer.MAX_VALUE) {
+            def newOutput = start+i+"."+end as File
+            if(!newOutput.exists()) {
+                excl.data.output = newOutput
+                break
+            }
+        }
+    }
+    def json = new JsonSlurper().parse(excl.data.input)
     CssTranslator translator = new CssTranslator()
 
     //MapContent
@@ -123,13 +141,13 @@ else {
         //Style
         def styles = []
         layer.styles.each {
-            Stylesheet ss = CssParser.parse(new File(exclusive.data.input.parent, it.style).text)
+            Stylesheet ss = CssParser.parse(new File(excl.data.input.parent, it.style).text)
             styles << translator.translate(ss)
         }
 
         //Feature collection
         def features
-        def data = new File(exclusive.data.input.parent, layer.data)
+        def data = new File(excl.data.input.parent, layer.data)
         if (data.name.endsWith(".json") || data.name.endsWith(".geojson")) {
             features = new GeoJSONReader(data.text).features
         } else if (data.name.endsWith(".shp")) {
@@ -159,17 +177,14 @@ else {
     gr.fill imageBounds
 
     renderer.paint gr, imageBounds, mapBounds
-    if (!exclusive.data.output) {
-        println "No output provided"; return
-    }
-    ImageIO.write image, "png", exclusive.data.output
-    println "File created at : ${exclusive.data.output.absoluteFile}"
+    ImageIO.write image, "png", excl.data.output
+    println "File created at : ${excl.data.output.absoluteFile}"
 
-    if (exclusive.data.show != null) {
-        if(! (exclusive.data.show ==~ "\\d+x\\d+")) {
-            println "size doesn't match the pattern 'widthxheight' 'like 120x340'";return
+    if (excl.data.show != null) {
+        if(! (excl.data.show ==~ "\\d+x\\d+")) {
+            println "Size doesn't match the pattern 'widthxheight' 'like 120x340'";return
         }
-        def (width, height) = exclusive.data.show ? exclusive.data.show.split("x") : [image.width, image.height]
+        def (width, height) = excl.data.show ? excl.data.show.split("x") : [image.width, image.height]
         def pane = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {

@@ -4,9 +4,15 @@ Proof of concept for cartographic document generation using GeoTools libraries.
 This library need you to have a Java JRE 11 and Groovy installed.
 
 ## Command
-Simple script: 
+
+The groovy script `poccarto.groovy` should be run as a bash command line.
+It renders the input `.mc` file into the output image (like `.png` or `.jpg).
+
+If the output file exists, it is replaced by the new content. To avoid that, the option `--no-replace` should be used.
+
+Command usage: 
 ```bash 
-groovy poccarto.groovy [-hV] (--mcHelp | [<input> <output> [-s[=<show>]]])
+groovy poccarto.groovy [-hV] (--mcHelp | [<input> <output> [-s[=<show>]] [--no-replace]])
 
 ```
 
@@ -20,6 +26,9 @@ For more information about .mc file, use option `--mcHelp`.
 `-h, --help`      Show this help message and exit.
 
 `--mcHelp`    Documentation about .mc file.
+
+`--no-replace`      Avoid to replace existing output file by adding a number at the end : out.png -> out1.png -> out2.png ...
+
 
 `-s, --show[=<show>]`   Show the rendering result in a separated window. Window size can be set adding 'widthxheight' like '--show 300x240'.
 
