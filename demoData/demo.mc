@@ -12,7 +12,7 @@
             ]
         },
         {
-            "data":"data_lines.geojson",
+            "data":"data_lines.shp",
             "styles":[
                 {"style":"line.css"}
             ]

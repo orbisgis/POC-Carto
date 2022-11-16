@@ -13,10 +13,11 @@ import java.awt.image.BufferedImage
 import static java.awt.RenderingHints.*
 @Grab('info.picocli:picocli-groovy:4.6.3')
 @GrabResolver(name='osgeo', root='https://repo.osgeo.org/repository/release/')
-@Grab('org.geotools:gt-css:27.0')
 @Grab('org.geotools:gt-render:27.0')
+@Grab('org.geotools:gt-css:27.0')
 @Grab('org.geotools:gt-main:27.0')
 @Grab('org.geotools:gt-geojson-core:27.0')
+@Grab(group='org.geotools', module='gt-shapefile', version='27.0')
 
 import static picocli.CommandLine.*
 import groovy.transform.Field
@@ -106,7 +107,7 @@ else {
         if (data.name.endsWith(".json") || data.name.endsWith(".geojson")) {
             features = new GeoJSONReader(data.text).getFeatures()
         } else if (data.name.endsWith(".shp")) {
-            def ds = DataStoreFinder.getDataStore(["url", data.toURI().toURL()])
+            def ds = DataStoreFinder.getDataStore(["url": data.toURI().toURL()])
             features = ds.getFeatureSource(ds.getTypeNames()[0]).getFeatures()
         } else println("Unsupported file format : '$data'")
 
