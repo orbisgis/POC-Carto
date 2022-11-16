@@ -76,6 +76,8 @@ if(excl.mcHelp) println("""
 The .mc file is the serialization of a map content under json format : 
 {
     "title":"title of the map",
+    "w"/"width": 300,
+    "h"/"height": 400,
     "layers":[
         {
             "data":"path to your data file (.geojson format)", 
@@ -98,9 +100,11 @@ The .mc file is the serialization of a map content under json format :
 }
 """)
 else {
+    //Check input
     if (!excl.data.input) {
         println "Empty input"; return
     }
+    //Check output and rename it if needed
     if (!excl.data.output) {
         println "No output provided"; return
     }
@@ -116,9 +120,32 @@ else {
             }
         }
     }
+    //Parse JSON
     def json = new JsonSlurper().parse(excl.data.input)
-    CssTranslator translator = new CssTranslator()
+    //Check document width
+    def width
+    if(!json.width) {
+        if (!json.w) {
+            println "No output document width"; return
+        }
+        else
+            width = json.w
+    }
+    else
+        width = json.width
+    //Check document height
+    def height
+    if(!json.height) {
+        if (!json.h) {
+            println "No output document height"; return
+        }
+        else
+            height = json.h
+    }
+    else
+        height = json.height
 
+    CssTranslator translator = new CssTranslator()
     //MapContent
     def renderer = new StreamingRenderer()
     def hints = new RenderingHints(KEY_ANTIALIASING, VALUE_ANTIALIAS_ON)
@@ -162,15 +189,8 @@ else {
     }
 
     renderer.mapContent = mc
-
-    if (!json.w) {
-        println "No output document width"; return
-    }
-    if (!json.h) {
-        println "No output document height"; return
-    }
-    def image = [json.w, json.h, BufferedImage.TYPE_INT_RGB] as BufferedImage
-    def imageBounds = [0, 0, json.w, json.h] as Rectangle
+    def image = [width, height, BufferedImage.TYPE_INT_RGB] as BufferedImage
+    def imageBounds = [0, 0, width, height] as Rectangle
 
     def gr = image.createGraphics()
     gr.paint = Color.WHITE
@@ -181,21 +201,21 @@ else {
     println "File created at : ${excl.data.output.absoluteFile}"
 
     if (excl.data.show != null) {
-        if(! (excl.data.show ==~ "\\d+x\\d+")) {
+        if(!excl.data.show.isEmpty() && ! (excl.data.show ==~ "\\d+x\\d+")) {
             println "Size doesn't match the pattern 'widthxheight' 'like 120x340'";return
         }
-        def (width, height) = excl.data.show ? excl.data.show.split("x") : [image.width, image.height]
+        def (fWidth, fHeight) = excl.data.show ? excl.data.show.split("x") : [image.width, image.height]
         def pane = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g)
-                g.drawImage(image, 0, 0, width as int, height as int, null)
+                g.drawImage(image, 0, 0, fWidth as int, fHeight as int, null)
             }
         }
 
         JFrame frame = new JFrame()
         frame.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
-        frame.setSize width as int, height as int
+        frame.setSize fWidth as int, fHeight as int
         frame.visible = true
         frame.add(pane)
     }

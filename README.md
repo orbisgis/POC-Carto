@@ -37,11 +37,16 @@ For more information about .mc file, use option `--mcHelp`.
 
 ## MC file
 
-The .mc file is the serialization of a map content under json format :
+The .mc file is the serialization of a map content under json format.
+
+The width can be defined using `"w"` or `"width"`.
+The height can be defined using `"h"` or `"height"`.
 
 ```json
 {
     "title":"title of the map",
+    "w"/"width": 300,
+    "h"/"height": 400,
     "layers":[
         {
             "data":"path to your data file (.geojson format)", 
