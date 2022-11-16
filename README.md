@@ -6,7 +6,8 @@ This library need you to have a Java JRE 11 and Groovy installed.
 ## Command
 Simple script: 
 ```bash 
-groovy poccarto.groovy [-hV] (--mcHelp | [<input> <output>])
+groovy poccarto.groovy [-hV] (--mcHelp | [<input> <output> [-s[=<show>]]])
+
 ```
 
 Render input map content (.mc) file into the output image file.
@@ -19,6 +20,9 @@ For more information about .mc file, use option `--mcHelp`.
 `-h, --help`      Show this help message and exit.
 
 `--mcHelp`    Documentation about .mc file.
+
+`-s, --show[=<show>]`   Show the rendering result in a separated window. Window size can be set adding 'widthxheight' like '--show 300x240'.
+
 
 `-V, --version`   Print version information and exit.
 
