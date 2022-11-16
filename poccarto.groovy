@@ -13,11 +13,11 @@ import java.awt.image.BufferedImage
 import static java.awt.RenderingHints.*
 @Grab('info.picocli:picocli-groovy:4.6.3')
 @GrabResolver(name='osgeo', root='https://repo.osgeo.org/repository/release/')
-@Grab('org.geotools:gt-render:27.0')
-@Grab('org.geotools:gt-css:27.0')
-@Grab('org.geotools:gt-main:27.0')
-@Grab('org.geotools:gt-geojson-core:27.0')
-@Grab(group='org.geotools', module='gt-shapefile', version='27.0')
+@Grab('org.geotools:gt-render:27.2')
+@Grab('org.geotools:gt-css:27.2')
+@Grab('org.geotools:gt-main:27.2')
+@Grab('org.geotools:gt-geojson-core:27.2')
+@Grab('org.geotools:gt-shapefile:27.2')
 
 import static picocli.CommandLine.*
 import groovy.transform.Field
