@@ -3,7 +3,7 @@ import org.orbisgis.poccarto.PocCartoCommand
 @Grab('org.orbisgis:poccarto:0.1-SNAPSHOT')
 @Grab('info.picocli:picocli-groovy:4.7.0')
 @Grab('org.geotools:gt-shapefile:27.2')
-@Grab('org.geotools:gt-geojson-core:27.2')
+@Grab('org.geotools:gt-geojson-store:27.2')
 @Grab('org.geotools:gt-main:27.2')
 @Grab('org.geotools:gt-css:27.2')
 @Grab('org.geotools:gt-render:27.2')
