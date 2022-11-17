@@ -92,22 +92,23 @@ class PocCarto {
             //Feature collection
             def features
             def data = new File(excl.data.input.parent, layer.data)
-            if (data.name.endsWith(".json") || data.name.endsWith(".geojson")) {
-                features = new GeoJSONReader(data.text).features
-            } else if (data.name.endsWith(".shp")) {
-                def ds = DataStoreFinder.getDataStore(["url": data.toURI().toURL()])
-                features = ds.getFeatureSource(ds.typeNames[0]).features
-            } else println("Unsupported file format : '$data'")
-            if (!json.bbox && features) {
-                if (!mapBounds)
-                    mapBounds = features.getBounds()
-                else
-                    mapBounds.expandToInclude(features.getBounds())
+            def ds = DataStoreFinder.getDataStore(["url": data.toURI().toURL()])
+            if(!ds) {
+                println("Unsupported file format : '$data'")
             }
+            else {
+                features = ds.getFeatureSource(ds.typeNames[0]).features
+                if (!json.bbox && features) {
+                    if (!mapBounds)
+                        mapBounds = features.getBounds()
+                    else
+                        mapBounds.expandToInclude(features.getBounds())
+                }
 
-            //Rendering
-            styles.each {
-                mc.addLayer(new FeatureLayer(features, it))
+                //Rendering
+                styles.each {
+                    mc.addLayer(new FeatureLayer(features, it))
+                }
             }
         }
 

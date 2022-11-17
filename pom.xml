@@ -21,7 +21,7 @@
         </dependency>
         <dependency>
             <groupId>org.geotools</groupId>
-            <artifactId>gt-geojson-core</artifactId>
+            <artifactId>gt-geojson-store</artifactId>
             <version>27.2</version>
         </dependency>
         <dependency>
