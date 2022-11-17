@@ -28,17 +28,11 @@ The .mc file is the serialization of a map content under json format :
     "layers":[
         {
             "data":"path to your data file (.geojson format)", 
-            "styles":[
-                {"style":"path to your style file (.css format)"}, 
-                {"style":"path to your style file (.css format)"},
-                ...
-            ]
+            "styles":["path to your style file (.css format)", "path to your style file (.css format)", ...]
         },
         {
             "data":"path to your second data file (.geojson format)", 
-            "styles":[
-                ...
-            ]
+            "styles":[...]
         },
         ...
     ],

@@ -1,3 +1,5 @@
+import org.orbisgis.poccarto.PocCartoCommand
+
 @Grab('org.orbisgis:poccarto:0.1-SNAPSHOT')
 @Grab('info.picocli:picocli-groovy:4.7.0')
 @Grab('org.geotools:gt-shapefile:27.2')
@@ -22,4 +24,4 @@ For more information about .mc file, use option '--mcHelp'.
 @ArgGroup(exclusive = true, multiplicity = "1")
 @Field Exclusive excl
 
-PocCarto.run(excl) ? 0 : 1
+PocCartoCommand.main(args)

@@ -38,7 +38,7 @@ class PocCarto {
         if (outFile.exists() && excl.data.noReplace) {
             def (start, end) = excl.data.output.absolutePath.split("\\.")
             for (i in 1..Integer.MAX_VALUE) {
-                def newOutput = (start + i + ". " + end) as File
+                def newOutput = (start + i + "." + end) as File
                 if (!newOutput.exists()) {
                     excl.data.output = newOutput
                     break
@@ -85,7 +85,7 @@ class PocCarto {
             //Style
             def styles = []
             layer.styles.each {
-                Stylesheet ss = CssParser.parse(new File(excl.data.input.parent, it.style).text)
+                Stylesheet ss = CssParser.parse(new File(excl.data.input.parent, it).text)
                 styles << translator.translate(ss)
             }
 
