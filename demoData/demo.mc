@@ -5,17 +5,11 @@
     "layers":[
         {
             "data":"data_point_polygon.geojson",
-            "styles":[
-                {"style":"point.css"},
-                {"style":"line.css"},
-                {"style":"polygon.css"}
-            ]
+            "styles":["point.css", "line.css", "polygon.css"]
         },
         {
             "data":"data_lines.shp",
-            "styles":[
-                {"style":"line.css"}
-            ]
+            "styles":["line.css"]
         }
     ]
 }

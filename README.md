@@ -53,17 +53,11 @@ The height can be defined using `"h"` or `"height"`.
     "layers":[
         {
             "data":"path to your data file (.geojson format)", 
-            "styles":[
-                {"style":"path to your style file (.css format)"}, 
-                {"style":"path to your style file (.css format)"},
-                ...
-            ]
+            "styles":["path to your style file (.css format)", "path to your style file (.css format)", ...]
         },
         {
             "data":"path to your second data file (.geojson format)", 
-            "styles":[
-                ...
-            ]
+            "styles":[...]
         },
         ...
     ],
