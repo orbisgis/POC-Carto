@@ -5,7 +5,7 @@ import picocli.CommandLine
 class Data {
     @CommandLine.Parameters(index = '0', description = 'The input map content (.mc) file.')
     File input
-    @CommandLine.Parameters(index = '1', description = 'The output image file.')
+    @CommandLine.Parameters(index = '1', description = 'Optional output image file. If not set, the output will be show (see --show option)', arity = "0..1")
     File output
     @CommandLine.Option(names = ['-s', '--show'],
             description = "Show the rendering result in a separated window. Window size can be set adding 'widthxheight' like '--show 300x240'.",
