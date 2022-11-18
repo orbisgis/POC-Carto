@@ -31,17 +31,19 @@ class PocCarto {
             println "Empty input"; return null
         }
         //Check output and rename it if needed
-        if (!excl.data.output) {
-            println "No output provided"; return null
+        if (!excl.data.output && !excl.data.show) {
+            excl.data.show = ""
         }
-        def outFile = excl.data.output as File
-        if (outFile.exists() && excl.data.noReplace) {
-            def (start, end) = excl.data.output.absolutePath.split("\\.")
-            for (i in 1..Integer.MAX_VALUE) {
-                def newOutput = (start + i + "." + end) as File
-                if (!newOutput.exists()) {
-                    excl.data.output = newOutput
-                    break
+        if (excl.data.output) {
+            def outFile = excl.data.output as File
+            if (outFile.exists() && excl.data.noReplace) {
+                def (start, end) = excl.data.output.absolutePath.split("\\.")
+                for (i in 1..Integer.MAX_VALUE) {
+                    def newOutput = (start + i + "." + end) as File
+                    if (!newOutput.exists()) {
+                        excl.data.output = newOutput
+                        break
+                    }
                 }
             }
         }
@@ -123,8 +125,10 @@ class PocCarto {
         gr.fill imageBounds
 
         renderer.paint gr, imageBounds, mapBounds
-        ImageIO.write image, "png", excl.data.output
-        println "File created at : ${excl.data.output.absoluteFile}"
+        if(excl.data.output) {
+            ImageIO.write image, "png", excl.data.output
+            println "File created at : ${excl.data.output.absoluteFile}"
+        }
 
         if (excl.data.show != null) {
             if (!excl.data.show.isEmpty() && !(excl.data.show ==~ "\\d+x\\d+")) {
@@ -141,9 +145,15 @@ class PocCarto {
 
             def frame = new JFrame()
             frame.defaultCloseOperation = WindowConstants.EXIT_ON_CLOSE
-            frame.setSize fWidth as int, fHeight as int
+            frame.setLayout(new BorderLayout())
+            frame.add(pane, BorderLayout.CENTER)
             frame.visible = true
-            frame.add(pane)
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                void run() {
+                    frame.setSize fWidth as int, (fHeight as int + frame.insets.top)
+                }
+            })
         }
         return excl.data.output
     }

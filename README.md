@@ -13,10 +13,11 @@ If the output file exists, it is replaced by the new content. To avoid that, the
 Command usage: 
 ```bash 
 # General usage
-groovy poccarto.groovy [-hV] (--mcHelp | [<input> <output> [-s[=<show>]] [--no-replace]])
+groovy poccarto.groovy [-hV] (--mcHelp | [<input> [<output>] [-s[=<show>]] [--no-replace]])
 # Very simple usage
 groovy poccarto.groovy inputMCFile.mc outputImageFile.png
-
+# To just display the result
+groovy poccarto.groovy inputMCFile.mc
 ```
 
 Render input map content (.mc) file into the output image file.
@@ -24,7 +25,7 @@ For more information about .mc file, use option `--mcHelp`.
 
 `<input>`     The input map content (.mc) file.
 
-`<output>`    The output image file.
+`[<output>]`    Optional output image file. If not set, the generated map whill be display (see `--show` option).
 
 `-h, --help`      Show this help message and exit.
 
