@@ -16,7 +16,8 @@ Command usage:
 groovy poccarto.groovy [-hV] (--mcHelp | [<input> [<output>] [-s[=<show>]] [--no-replace]])
 # Very simple usage
 groovy poccarto.groovy inputMCFile.mc outputImageFile.png
-
+# To just display the result
+groovy poccarto.groovy inputMCFile.mc
 ```
 
 Render input map content (.mc) file into the output image file.
