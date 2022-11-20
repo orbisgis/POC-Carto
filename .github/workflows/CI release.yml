@@ -80,7 +80,7 @@ jobs:
           bodyFile: "docs/CHANGELOG.md"
           draft: false
           prerelease: false
-          artifacts: "h2gis-dist/target/h2gis-standalone-bin.zip"
+          artifacts: "target/poccarto-*-command.jar"
 
       # Clear the changelog file and add its header
       - name: Clear changelog
