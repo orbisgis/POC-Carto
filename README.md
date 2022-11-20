@@ -1,16 +1,26 @@
 # POC-Carto
 Proof of concept for cartographic document generation using GeoTools libraries.
 
-This library need you to have a Java JRE 11 and Groovy installed.
+This library need you to have a Java _JRE 11_ and Groovy 3.0.X installed.
 
-## Command
+It renders the input `.mc` file into the output image (like `.png` or `.jpg).
+
+## Java JAR
+
+The Java JAR can be found [here](https://nightly.link/orbisgis/POC-Carto/workflows/CI_snapshot/main/poccarto-command.zip) and shouldbe run as a bash command line :
+```bash
+java -jar poccarto-*-command.jar [-hV] (--mcHelp | [<input> [<output>] [-s[=<show>]] [--no-replace]])
+# Very simple usage
+java -jar poccarto-*-command.jar inputMCFile.mc outputImageFile.png
+# To just display the result
+java -jar poccarto-*-command.jar inputMCFile.mc
+```
+
+## Groovy Script
 
 The groovy script `poccarto.groovy` should be run as a bash command line.
 It renders the input `.mc` file into the output image (like `.png` or `.jpg).
 
-If the output file exists, it is replaced by the new content. To avoid that, the option `--no-replace` should be used.
-
-Command usage: 
 ```bash 
 # General usage
 groovy poccarto.groovy [-hV] (--mcHelp | [<input> [<output>] [-s[=<show>]] [--no-replace]])
@@ -20,7 +30,9 @@ groovy poccarto.groovy inputMCFile.mc outputImageFile.png
 groovy poccarto.groovy inputMCFile.mc
 ```
 
+## Command usage
 Render input map content (.mc) file into the output image file.
+If the output file exists, it is replaced by the new content. To avoid that, the option `--no-replace` should be used.
 For more information about .mc file, use option `--mcHelp`.
 
 `<input>`     The input map content (.mc) file.
