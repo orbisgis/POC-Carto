@@ -18,7 +18,7 @@ java -jar poccarto-*-command.jar inputMCFile.mc
 
 ## Groovy Script
 
-The groovy script `poccarto.groovy` should be run as a bash command line.
+The groovy script [poccarto.groovy](https://raw.githubusercontent.com/orbisgis/POC-Carto/main/poccarto.groovy) should be run as a bash command line.
 It renders the input `.mc` file into the output image (like `.png` or `.jpg).
 
 ```bash 
