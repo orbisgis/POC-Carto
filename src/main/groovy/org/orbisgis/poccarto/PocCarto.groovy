@@ -87,13 +87,13 @@ class PocCarto {
             //Style
             def styles = []
             layer.styles.each {
-                Stylesheet ss = CssParser.parse(new File(excl.data.input.parent, it).text)
+                Stylesheet ss = CssParser.parse(new File(it).text)
                 styles << translator.translate(ss)
             }
 
             //Feature collection
             def features
-            def data = new File(excl.data.input.parent, layer.data)
+            def data = new File(layer.data)
             def ds = DataStoreFinder.getDataStore(["url": data.toURI().toURL()])
             if(!ds) {
                 println("Unsupported file format : '$data'")
