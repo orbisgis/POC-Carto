@@ -1,5 +1,5 @@
-@GrabResolver(name='orbisgis', root='https://oss.sonatype.org/content/repositories/snapshots/')
-@Grab(group='org.orbisgis', module='poccarto', version='0.1-SNAPSHOT')
+//@GrabResolver(name='orbisgis', root='https://oss.sonatype.org/content/repositories/snapshots/')
+//@Grab(group='org.orbisgis', module='poccarto', version='0.1-SNAPSHOT')
 
 import org.apache.commons.io.FilenameUtils
 import org.orbisgis.poccarto.PocCartoCommand

@@ -1,0 +1,12 @@
+* {
+  fill: [categorize(
+         IMPERVIOUS_FRACTION,
+         '#d3d3d3',
+         0.1,
+         '#969696',
+         0.3,
+         '#f8c3ac',
+          0.5,
+         '#ca0020')];
+  stroke : lightgrey;
+}
