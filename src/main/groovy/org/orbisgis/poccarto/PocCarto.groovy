@@ -73,13 +73,13 @@ class PocCarto {
         def renderer = new StreamingRenderer()
         def hints = new RenderingHints(KEY_ANTIALIASING, VALUE_ANTIALIAS_ON)
         renderer.java2DHints = hints
-        def mc = new MapContent()
+        MapContent mc = new MapContent()
         mc.title = json.title
 
         if (!json.layers) {
             println "No Layer"; return null
         }
-        def mapBounds
+        ReferencedEnvelope mapBounds
         if (json.bbox)
             mapBounds = new ReferencedEnvelope(json.bbox[0], json.bbox[1], json.bbox[2], json.bbox[3], CRS.decode(json.crs))
 
@@ -114,8 +114,10 @@ class PocCarto {
             }
         }
 
-        mc.viewport = new MapViewport(mapBounds)
-
+        MapViewport viewport = mc.getViewport()
+        viewport.setBounds(  mapBounds )
+        viewport.setScreenArea(new Rectangle(width, height));
+        mc.viewport = viewport
         renderer.mapContent = mc
         def image = [width, height, BufferedImage.TYPE_INT_RGB] as BufferedImage
         def imageBounds = [0, 0, width, height] as Rectangle
@@ -124,11 +126,12 @@ class PocCarto {
         gr.paint = Color.WHITE
         gr.fill imageBounds
 
-        renderer.paint gr, imageBounds, mapBounds
+        renderer.paint gr, viewport.getScreenArea(), viewport.getBounds()
         if(excl.data.output) {
             ImageIO.write image, "png", excl.data.output
             println "File created at : ${excl.data.output.absoluteFile}"
         }
+        mc.dispose()
 
         if (excl.data.show != null) {
             if (!excl.data.show.isEmpty() && !(excl.data.show ==~ "\\d+x\\d+")) {

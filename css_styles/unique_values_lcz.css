@@ -1,0 +1,83 @@
+/* Metadata
+* @title Local Climate Zones I
+* @abstract Local Climate Zones I
+*/
+
+/* Main rule*/
+
+* {
+  stroke: rgb(255,255,255);
+  stroke-width: 0.26;
+  stroke-linejoin:bevel;
+
+/* Styling according to the Local Climate Zones */
+
+  /* @title LCZ 1: Compact high-rise */
+  [LCZ_PRIMARY = 1] {
+    fill: rgb(139, 1, 1);
+  };
+  /* @title LCZ 2: Compact mid-rise */
+  [LCZ_PRIMARY = 2] {
+    fill: rgb(204, 2, 0);
+  };
+  /* @title LCZ 3: Compact low-rise */
+  [LCZ_PRIMARY = 3] {
+    fill: rgb(252, 0, 1);
+  };
+  /* @title LCZ 4: Open high-rise */
+  [LCZ_PRIMARY = 4] {
+    fill: rgb(190, 76, 3);
+  };
+  /* @title LCZ 5: Open mid-rise */
+  [LCZ_PRIMARY = 5] {
+    fill: rgb(255, 102, 2);
+  };
+  /* @title LCZ 6: Open low-rise */
+  [LCZ_PRIMARY = 6] {
+    fill: rgb(255, 152, 86);
+  };
+  /* @title LCZ 7: Lightweight low-rise */
+  [LCZ_PRIMARY = 7] {
+    fill: rgb(251, 237, 8);
+  };
+  /* @title LCZ 8: Large low-rise */
+  [LCZ_PRIMARY = 8] {
+    fill: #bcbcba;
+  };
+  /* @title LCZ 9: Sparsely built */
+  [LCZ_PRIMARY = 9] {
+    fill: rgb(188, 188, 186);
+  };
+  /* @title LCZ 10: Heavy industry */
+  [LCZ_PRIMARY = 10] {
+    fill: rgb(87, 85, 90);
+  };
+  /* @title LCZ A: Dense trees */
+  [LCZ_PRIMARY = 101] {
+    fill: rgb(0, 103, 0);
+  };
+  /* @title LCZ B: Scattered trees */
+  [LCZ_PRIMARY = 102] {
+    fill: rgb(5, 170, 5);
+  };
+  /* @title LCZ C: Bush,scrub */
+  [LCZ_PRIMARY = 103] {
+    fill: rgb(100, 132, 35) ;
+  };
+  /* @title LCZ D: Low plants */
+  [LCZ_PRIMARY = 104] {
+    fill: rgb(187, 219, 122);
+  };
+  /* @title LCZ E: Bare rock or paved */
+  [LCZ_PRIMARY = 105] {
+    fill: rgb(1, 1, 1);
+  };
+  /* @title LCZ F: Bare soil or sand */
+  [LCZ_PRIMARY = 106] {
+    fill: rgb(253, 246, 174);
+  };
+  /* @title LCZ G: Water */
+  [LCZ_PRIMARY = 107] {
+    fill: rgb(109, 103, 253);
+  };
+}
