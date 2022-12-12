@@ -1,0 +1,35 @@
+*{
+    geometry: centroid(geometry);
+    mark:   symbol(semicircle);
+    mark-size: [Interpolate(
+         POP_0_5_YEARS,
+         0, 10,
+         10, 50,
+         100, 100,
+         'numeric',
+         'linear')];
+   :mark {
+       fill: #09324D;
+       fill-opacity: 0.2;
+       stroke: black;
+       stroke-width : 1px;
+     }
+  }
+ *{
+      geometry: centroid(geometry);
+      mark:   symbol(semicircle);
+      mark-size: [Interpolate(
+           POP_GREATER_65_YEARS,
+            0, 10,
+            10, 50,
+            100, 100,
+           'numeric',
+           'linear')];
+     :mark {
+         fill: #f44336;
+         fill-opacity: 0.2;
+         stroke: black;
+         stroke-width : 1px;
+         rotation: 90deg;
+       }
+    }

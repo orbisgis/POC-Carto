@@ -1,5 +1,8 @@
-[SUM_POP>0] {
-   geometry: centroid(the_geom);
+*{
+  stroke: grey;
+  stroke-width: 1px;
+  [SUM_POP>0] {
+    geometry: centroid(the_geom);
     mark:   symbol(circle);
     mark-size: [Interpolate(
          SUM_POP,
@@ -9,9 +12,10 @@
          'numeric',
          'linear')];
    :mark {
-       fill: #009900;
+       fill: orange;
        fill-opacity: 0.2;
        stroke: black;
        stroke-width : 1px;
      }
   }
+}

@@ -5,7 +5,13 @@ import org.apache.commons.io.FilenameUtils
 import org.orbisgis.poccarto.PocCartoCommand
 import picocli.CommandLine
 
+//The tmp dir to store the result images in PNG
 
+def tmp_dir = System.getProperty("java.io.tmpdir")+ File.separator+"poc_carto"
+
+if(!new File(tmp_dir).exists()){
+    new File(tmp_dir).mkdir()
+}
 def mapContextFolder =  "/home/ebocher/Autres/codes/POC-Carto/mapcontext";
 
 if(!mapContextFolder){
@@ -32,7 +38,7 @@ PocCartoCommand app = new PocCartoCommand()
 def cmd = new CommandLine(app)
 def sw = new StringWriter()
 cmd.setOut(new PrintWriter(sw))
-
-mapcontextFiles.each {
-    cmd.execute(it.value, "${folder_mc.absolutePath+File.separator+it.key}.png")
+def selectecMapContext = ["face_to_face_proportional_symbol"]
+mapcontextFiles.subMap(selectecMapContext).each {
+    cmd.execute(it.value, "${tmp_dir+File.separator+it.key}.png")
 }

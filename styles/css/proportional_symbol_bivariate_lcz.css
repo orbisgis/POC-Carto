@@ -1,0 +1,54 @@
+*{
+ [LCZ_PRIMARY != 104]{
+   stroke: grey;
+   stroke-width: 1px;
+ }
+ [SUM_POP>0] {
+    geometry: centroid(the_geom);
+    mark:   symbol(circle);
+    mark-size: [Interpolate(
+         SUM_POP,
+         0, 10,
+         30, 20,
+         84, 100,
+         'numeric',
+         'linear')];
+ };
+ /* @title high climate risk */
+ [LCZ_PRIMARY = 1],
+ [LCZ_PRIMARY = 2],
+ [LCZ_PRIMARY = 3],
+ [LCZ_PRIMARY = 10],
+ [LCZ_PRIMARY = 105]{
+   :mark{
+     fill: red;
+   }
+ };
+
+ /* @title moderate climate risk */
+ [LCZ_PRIMARY = 4],
+ [LCZ_PRIMARY = 5],
+ [LCZ_PRIMARY = 6],
+ [LCZ_PRIMARY = 7],
+ [LCZ_PRIMARY = 8],
+ [LCZ_PRIMARY = 9]{
+   :mark{
+     fill: orange;
+   }
+ };
+
+ /* @title low climate risk */
+ [LCZ_PRIMARY = 101],
+ [LCZ_PRIMARY = 102],
+ [LCZ_PRIMARY = 103],
+ [LCZ_PRIMARY = 106],
+ [LCZ_PRIMARY = 107]{
+   :mark{
+     fill: green;
+   }
+ };
+ }
+
+
+
+

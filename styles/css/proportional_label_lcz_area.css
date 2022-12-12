@@ -1,0 +1,40 @@
+*{
+     stroke: grey;
+     stroke-width: 0.26;
+     label: [LCZ_PRIMARY];
+     font-family: Arial;
+     font-size: [Interpolate(
+                           area(geometry)/10000,
+                           0, 10,
+                           5, 20,
+                           10, 32,
+                           'numeric',
+                           'linear')];
+      font-style: normal;
+      font-weight: bold;
+      font-fill: black;
+      label-anchor: 0.5 0.5;
+      label-auto-wrap: 60;
+      label-max-displacement: 150;
+
+       /* @title high  */
+          [LCZ_PRIMARY <= 4],
+          [LCZ_PRIMARY = 8],
+          [LCZ_PRIMARY = 10],
+          [LCZ_PRIMARY = 105] {
+              font-fill: red;
+          };
+          /* @title mid */
+          [LCZ_PRIMARY >= 5]
+          [LCZ_PRIMARY <= 7],
+          [LCZ_PRIMARY = 9],
+          [LCZ_PRIMARY = 10] {
+           font-fill :orange;
+          };
+          /* @title low */
+          [LCZ_PRIMARY >= 101]
+          [LCZ_PRIMARY <= 104],
+          [LCZ_PRIMARY = 107]{
+            font-fill:  green;
+          }
+}

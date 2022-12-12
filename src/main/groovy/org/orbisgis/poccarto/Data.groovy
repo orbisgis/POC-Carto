@@ -14,4 +14,5 @@ class Data {
     @CommandLine.Option(names = '--no-replace',
             description = 'Avoid to replace existing output file by adding a number at the end : out.png -> out1.png -> out2.png ...')
     boolean noReplace
+
 }
