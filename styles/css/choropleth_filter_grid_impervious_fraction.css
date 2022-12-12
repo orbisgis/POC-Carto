@@ -1,0 +1,18 @@
+*{
+  stroke: #000000;
+  stroke-width: 1px;
+  [HIGH_VEGETATION_FRACTION>=0][HIGH_VEGETATION_FRACTION<=0.200]
+  {
+     fill: yellow;
+  };
+  [HIGH_VEGETATION_FRACTION>0.200] [HIGH_VEGETATION_FRACTION<0.500]
+  {
+     fill: orange;
+  };
+  [HIGH_VEGETATION_FRACTION>0.500]
+  {
+     fill: red;
+  };
+}
+
+

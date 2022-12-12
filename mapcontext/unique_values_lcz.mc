@@ -5,7 +5,7 @@
     "layers":[
         {
             "data":"/home/ebocher/Autres/codes/POC-Carto/data/rsu_lcz.geojson",
-            "styles":["/home/ebocher/Autres/codes/POC-Carto/css_styles/unique_values_lcz.css"]
+            "styles":["/home/ebocher/Autres/codes/POC-Carto/styles/css/unique_values_lcz.css"]
         }
     ]
 }

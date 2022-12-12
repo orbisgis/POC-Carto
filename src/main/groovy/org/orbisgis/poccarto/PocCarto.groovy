@@ -3,15 +3,20 @@ package org.orbisgis.poccarto
 import groovy.json.JsonSlurper
 import org.geotools.data.DataStoreFinder
 import org.geotools.data.geojson.GeoJSONReader
+import org.geotools.factory.CommonFactoryFinder
 import org.geotools.geometry.jts.ReferencedEnvelope
 import org.geotools.map.FeatureLayer
 import org.geotools.map.MapContent
 import org.geotools.map.MapViewport
 import org.geotools.referencing.CRS
 import org.geotools.renderer.lite.StreamingRenderer
+import org.geotools.styling.StyleFactory
+import org.geotools.styling.StyleFactoryImpl
 import org.geotools.styling.css.CssParser
 import org.geotools.styling.css.CssTranslator
 import org.geotools.styling.css.Stylesheet
+import org.geotools.xml.styling.SLDParser
+import org.geotools.xml.styling.SLDTransformer
 import picocli.CommandLine
 
 import javax.imageio.ImageIO
@@ -69,6 +74,7 @@ class PocCarto {
             height = json.height
 
         CssTranslator translator = new CssTranslator()
+        StyleFactory styleFactory = new StyleFactoryImpl()
         //MapContent
         def renderer = new StreamingRenderer()
         def hints = new RenderingHints(KEY_ANTIALIASING, VALUE_ANTIALIAS_ON)
@@ -87,8 +93,22 @@ class PocCarto {
             //Style
             def styles = []
             layer.styles.each {
-                Stylesheet ss = CssParser.parse(new File(it).text)
-                styles << translator.translate(ss)
+                //Load the style
+                def stylePath= it.toLowerCase()
+                if (stylePath.endsWith(".css")) {
+                    Stylesheet ss = CssParser.parse(new File(it).text)
+                    def css_style =translator.translate(ss)
+                    styles << translator.translate(ss)
+                    if(true){
+                        SLDTransformer sldTransformer = new SLDTransformer()
+                        sldTransformer.setIndentation(4)
+                        sldTransformer.transform(css_style, new FileOutputStream(new File("/tmp/style.sld")))
+                    }
+                }
+                else if(stylePath.endsWith(".sld")){
+                    SLDParser stylereader = new SLDParser(styleFactory, new File(it))
+                    styles << stylereader.readXML()[0]
+                }
             }
 
             //Feature collection

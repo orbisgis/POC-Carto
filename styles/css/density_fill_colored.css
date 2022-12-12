@@ -1,0 +1,42 @@
+/* Metadata
+* @title Potential risk (dot density)
+* @abstract Potential risk (dot density)
+*/
+
+* {
+  fill: symbol(circle);
+  fill-random: random;
+  fill-random-seed: 5;
+  fill-random-tile-size: 100;
+  n:[round(area(THE_GEOM)/100)];
+  fill-random-symbol-count: n;
+  :fill {
+    size: 0.26;
+  };
+   /* @title high  */
+    [LCZ_PRIMARY <= 4],
+    [LCZ_PRIMARY = 8],
+    [LCZ_PRIMARY = 10],
+    [LCZ_PRIMARY = 105] {
+      :fill{
+        fill: red;
+      }
+    };
+    /* @title mid */
+    [LCZ_PRIMARY >= 5]
+    [LCZ_PRIMARY <= 7],
+    [LCZ_PRIMARY = 9],
+    [LCZ_PRIMARY = 10] {
+      :fill{
+      fill:orange;
+      }
+    };
+    /* @title low */
+    [LCZ_PRIMARY >= 101]
+    [LCZ_PRIMARY <= 104],
+    [LCZ_PRIMARY = 107]{
+      :fill{
+      fill: green;
+      }
+    }
+}
