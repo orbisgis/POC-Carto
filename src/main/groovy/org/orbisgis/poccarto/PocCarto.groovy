@@ -1,6 +1,7 @@
 package org.orbisgis.poccarto
 
 import groovy.json.JsonSlurper
+import org.apache.commons.io.FilenameUtils
 import org.geotools.data.DataStoreFinder
 import org.geotools.data.geojson.GeoJSONReader
 import org.geotools.factory.CommonFactoryFinder
@@ -75,6 +76,9 @@ class PocCarto {
 
         CssTranslator translator = new CssTranslator()
         StyleFactory styleFactory = new StyleFactoryImpl()
+
+        def tmp_dir = System.getProperty("java.io.tmpdir")+ File.separator+"poc_carto"
+
         //MapContent
         def renderer = new StreamingRenderer()
         def hints = new RenderingHints(KEY_ANTIALIASING, VALUE_ANTIALIAS_ON)
@@ -100,9 +104,10 @@ class PocCarto {
                     def css_style =translator.translate(ss)
                     styles << translator.translate(ss)
                     if(true){
+                        def fileNameWithoutExt = FilenameUtils.removeExtension(it)
                         SLDTransformer sldTransformer = new SLDTransformer()
                         sldTransformer.setIndentation(4)
-                        sldTransformer.transform(css_style, new FileOutputStream(new File("/tmp/style.sld")))
+                        sldTransformer.transform(css_style, new FileOutputStream(new File(tmp_dir+File.separator+"${fileNameWithoutExt}.sld")))
                     }
                 }
                 else if(stylePath.endsWith(".sld")){

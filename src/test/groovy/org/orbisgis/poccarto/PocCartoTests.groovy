@@ -38,7 +38,7 @@ PocCartoCommand app = new PocCartoCommand()
 def cmd = new CommandLine(app)
 def sw = new StringWriter()
 cmd.setOut(new PrintWriter(sw))
-def selectecMapContext = ["face_to_face_proportional_symbol"]
+def selectecMapContext = ["bivariate_proportional_roads"]
 mapcontextFiles.subMap(selectecMapContext).each {
     cmd.execute(it.value, "${tmp_dir+File.separator+it.key}.png")
 }
