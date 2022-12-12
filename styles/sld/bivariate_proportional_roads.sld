@@ -106,7 +106,8 @@
           <LineSymbolizer>
             <Stroke>
               <CssParameter name="stroke">#000000</CssParameter>
-              <CssParameter name="stroke-width"><ogc:Function name="Interpolate">
+              <CssParameter name="stroke-width">
+                <ogc:Function name="Interpolate">
                 <ogc:PropertyName>WIDTH</ogc:PropertyName>
                 <ogc:Literal>0</ogc:Literal>
                 <ogc:Literal>1</ogc:Literal>
@@ -116,7 +117,7 @@
                 <ogc:Literal>10</ogc:Literal>
                 <ogc:Literal>numeric</ogc:Literal>
                 <ogc:Literal>linear</ogc:Literal>
-              </ogc:Function></CssParameter>
+                </ogc:Function></CssParameter>
             </Stroke>
           </LineSymbolizer>
         </Rule>
